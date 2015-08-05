@@ -47,8 +47,12 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = 'yii\debug\Module';
 
+    /*
+     *
+    Desabilitado no Exercício 6
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';
+    */
 }
 
 return $config;
