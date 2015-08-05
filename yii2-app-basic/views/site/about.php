@@ -9,8 +9,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        This is the About page. You may modify the following file to customize its content:
+        Este trabalho foi solicitado pelo Professor David Fernandes na dispiciplina de Programação Web, e será utilizado
+        como trabalho final dessa disciplina.
     </p>
-
+    <p> </p>
+    <p>Hora:  <?=$hora ?></p>
     <code><?= __FILE__ ?></code>
 </div>
