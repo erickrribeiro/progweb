@@ -1,0 +1,279 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" >
+		<title> Jogo Dos Pontos</title>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+	</head>
+	<body>
+		<table >
+			<tbody id="pointField">		
+		</table>
+
+		<div>
+			<ul>
+				<li class="placar">
+					<img src="img/p1.gif"> 
+					<p> Jogador 1 </p> 
+					<p class = "pontos" id="pontosJogador1"> 0</p> 
+				</li>
+				<hr/>
+				<li class="placar">
+					<img src="img/p2.gif">
+					<p> Jogador 2 </p>
+					<p class = "pontos" id="pontosJogador2"> 0</p>
+				</li>
+				<hr/>
+				<li> <p id="jogadasRestantes"> 30 Jogadas</p> </li>
+				<hr/>
+				<li> <p id="jogadorNaVez"> Jogador 1 é a sua vez</p> </li>
+				
+			</ul>
+		</div>
+		<div id="resultado">
+			<img src="img/vencedor.png" width=100 height=100 >
+			<p> Jogador 1 você venceu.<p>
+
+		</div>
+		<script type="text/javascript">
+		var jogo = {
+			getJogador1:function(rodada){
+				return rodada %2 == 1;
+			}
+		}
+
+		var quantidadeDeJogadas = 0;
+
+		var painelResultado = tela = document.querySelector('div#resultado');
+
+		var lblVencedorDoJogo = document.querySelector("div#resultado > p");
+		
+		var lblJogadorNaVez = document.querySelector("p#jogadorNaVez");
+
+		var lblPontosJogador1 = document.querySelector("p#pontosJogador1");
+		var qtdPontosJogador1 = 0;
+
+		var lblPontosJogador2 = document.querySelector("p#pontosJogador2");
+		var lblJogadasRestantes = document.querySelector("p#jogadasRestantes");
+		
+		var qtdPontosJogador2 = 0;
+		var jogadasRestantes = 0;
+
+		var n = 5;		
+		var pontuou = false;
+		contruir_campo(n);	
+		//Cria uma tabela que representa o campo com todos os valores por padrão com o valor 0;
+		var campo = Matrix(4*(n-1), 4*(n-1), 0);		
+		//console.log(campo);
+
+		function Matrix(m, n, d){
+    		var iMax = 20;
+			var jMax = 10;
+			var mat = new Array();
+
+			for (i=0;i<iMax;i++) {
+ 				mat[i] = new Array();
+ 				for (j=0;j<jMax;j++) {
+  					mat[i][j]=d;
+ 				}
+			}
+    		return mat;
+		}
+
+		function efetuarJogada(l, c){						
+
+			if(!campo[l][c]){
+				campo[l][c] = 1;
+				strVenceu = "";
+				
+				if (pontuou){								
+					quantidadeDeJogadas--;					
+				}
+				
+
+				if (!jogo.getJogador1(quantidadeDeJogadas)){
+					if (pontuou){					
+					
+						strVenceu = "<br>Você tem direito a mais uma jogada.";
+						pontuou = false;
+				
+
+						lblPontosJogador2.innerHTML = qtdPontosJogador2;
+
+						
+						if(jogadasRestantes == 1 ){
+							console.log("acabou");
+							lblVencedorDoJogo.innerHTML = "Jogador 2 você venceu."							
+													
+							painelResultado.style.visibility = "visible";
+							painelResultado.style.transition = "0s";
+							lblJogadasRestantes.innerHTML = "O Jogo Terminou.";
+							
+						}
+					}
+
+					lblJogadorNaVez.innerHTML = "Jogador 2 é a sua vez."+strVenceu;
+				}else{
+					
+					if (pontuou){					
+						strVenceu = "<br>Você tem direito a mais uma jogada.";
+						pontuou = false;
+				
+
+						//qtdPontosJogador1++;
+						lblPontosJogador1.innerHTML = qtdPontosJogador1;
+						
+
+						if(jogadasRestantes == 1 ){
+							console.log("acabou");
+							lblVencedorDoJogo.innerHTML = "Jogador 1 você venceu."
+							painelResultado.style.visibility = "visible";
+						}
+					}
+
+					lblJogadorNaVez.innerHTML = "Jogador 1 é a sua vez."+strVenceu;
+				}
+				
+				quantidadeDeJogadas++;
+				jogadasRestantes--;							
+				lblJogadasRestantes.innerHTML =  jogadasRestantes + " jogadas para o jogo terminar." ;
+			}
+		}
+
+		function mudarCorDaImg(tag){
+			if (quantidadeDeJogadas % 2 == 0){
+				qtdPontosJogador1++;
+				tag.src = "img/p1.gif";
+
+			}else{				
+				qtdPontosJogador2++;
+				tag.src = "img/p2.gif";
+			}
+		}
+
+		function modificaBarraHorizontal(elem) {			
+			console.log(elem);
+			
+			var l = parseInt(elem.path[1].id.split('-')[0]);			
+			var c = parseInt(elem.path[1].id.split('-')[1]);			
+				
+			//Verifica acima
+
+			if (l!=1){
+				if( campo[l-1][c-1] & campo[l-2][c] & campo[l-1][c+1] ){								
+					console.log('acima');
+					var img = document.getElementById((l-1)+"-"+""+c);
+					mudarCorDaImg(img);				
+					
+					pontuou = true;
+				}
+			}
+			//Verifica abaixo
+			if(campo[l+1][c-1] & campo[l+2][c] & campo[l+1][c+1]){				
+				console.log('abaixo');
+
+				var img = document.getElementById((l+1)+"-"+""+c);				
+				mudarCorDaImg(img);	
+
+				pontuou = true;
+			}
+			
+			elem.srcElement.src = "img/h1.gif";			
+			efetuarJogada(l, c);	
+						
+		}console.log(elem);
+	//
+		function modificaBarraVertical(elem) {			
+			var l = parseInt( elem.path[1].id.split('-')[0] );			
+			var c = parseInt( elem.path[1].id.split('-')[1] );	
+						
+			if(campo[l-1][c+1] && campo[l][c+2] && campo[l+1][c+1]){
+				console.log('esquerda');				
+
+				var img = document.getElementById(l+"-"+""+(c+1));
+				mudarCorDaImg(img);
+				
+				pontuou = true;
+			}
+			if(campo[l-1][c-1] && campo[l][c-2] && campo[l+1][c-1]){
+				console.log('direita');				
+				
+				var img = document.getElementById(l+"-"+""+(c-1));				
+				mudarCorDaImg(img);
+
+				pontuou = true;
+			}
+			
+			elem.srcElement.src = "img/v1.gif";			
+			efetuarJogada(l, c);
+		}
+
+		function contruir_campo(n) {
+		
+			var tableBody = document.getElementById("pointField");
+
+			for (var linha = 1;  linha < 4*(n-1); linha++) {		
+				if(linha %2 == 1){
+					var row = tableBody.appendChild(document.createElement("tr"));
+				}else{
+					var linha2 = tableBody.appendChild(document.createElement("tr"));
+				}
+
+				for (var coluna = 1; coluna < 4* (n-1); coluna++) {
+					if(linha %2 == 1 ){
+						if(coluna%2==1){
+							var img2 = document.createElement('img');
+							img2.src = 'img/d.gif';	
+							img2.width = 10;
+							img2.height = 10;	
+
+							row.appendChild(document.createElement("td")).appendChild(img2)	; 
+						}else{
+						jogadasRestantes++;							
+						var img = document.createElement('img');
+						img.src = 'img/h0.gif';										
+						img.width = 60;
+						img.height = 10;
+						
+
+						img.onclick = modificaBarraHorizontal;
+						celula = document.createElement("td");
+						celula.setAttribute("id", ""+linha+"-"+coluna);
+						row.appendChild(celula)
+						.appendChild(img); 							
+						
+						}
+					}else{
+						if(coluna%2==1){
+							jogadasRestantes++;
+							var img4 = document.createElement('img');
+							img4.src = 'img/v0.gif';
+							img4.height= 60;
+							img4.width= 10;
+							img4.onclick = modificaBarraVertical;	
+							celula = document.createElement("td");
+							celula.setAttribute("id", ""+linha+"-"+coluna);
+							linha2.appendChild(celula)
+							.appendChild(img4);		
+						}else{
+							var img5 = document.createElement('img');
+							img5.src = 'img/p0.gif';
+							img5.id = ""+linha+"-"+coluna;
+							img5.width = 60;
+							img5.height = 60;
+							linha2.appendChild(document.createElement("td"))
+							.appendChild(img5);				
+						}
+					}
+	
+				}
+			}
+			lblJogadasRestantes.innerHTML =  jogadasRestantes + " jogadas para o jogo terminar." ;
+		}
+					
+		</script>
+		
+	</body>	
+</html> 
+
+<!-- Deixar a tabela flutuando; vencer duas vezes de uma vez só 

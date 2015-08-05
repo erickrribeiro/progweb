@@ -1,0 +1,117 @@
+/* Chrome, Safari, Opera */
+@-webkit-keyframes myfirst {
+    0%   {background-color:red; left:0px; top:0px;}
+    25%  {background-color:yellow; left:200px; top:0px;}
+    50%  {background-color:blue; left:200px; top:200px;}
+    75%  {background-color:green; left:0px; top:200px;}
+    100% {background-color:red; left:0px; top:0px;}
+}
+
+/* Standard syntax */
+@keyframes myfirst {
+    0%   {background-color:red; right:0px; top:0px;}
+    25%  {background-color:yellow; right:400px; top:0px;}
+    50%  {background-color:blue; right:400px; top:200px;}
+    75%  {background-color:green; right:0px; top:200px;}
+    100% {background-color:red; right:0px; top:0px;}
+}
+
+div{
+	border-style: solid;
+	border-color: grey;
+	background-color: lightgrey;
+	border-radius: 10px;
+	width: 280px;
+	height: 300px;
+	float: right;
+	margin-right: 30px;
+	padding: 5px 15px 5px 5px
+}
+
+div#resultado>p{
+	
+	font-size: 25px;
+	position: relative;
+	bottom: 50px;			
+	left: 5px;
+	
+}
+
+div#resultado{
+	visibility: hidden;
+	padding: 10px 10px 10px 10px;
+	
+	position: relative;
+	right: 500px;
+	top: 150px;
+	width: 350px;
+	height: 100px;
+
+	-webkit-animation: myfirst 5s linear 2s infinite alternate; /* Chrome, Safari, Opera */
+    background-color: red;
+    
+    -webkit-animation: myfirst 5s linear 2s infinite alternate; /* Chrome, Safari, Opera */
+    animation: myfirst 5s linear 2s infinite alternate;
+}
+hr{
+	position: relative;
+	width: 290px;
+	bottom: 15px;	
+	right: 40px;
+}
+.placar{
+	position: relative;
+	right: 30px;
+	bottom: 40px;
+	
+	height: 60px;
+	
+}
+li{	
+	list-style-type: none;
+}
+.pontos{	
+	left: 40px;
+	bottom: 7px;
+	color: red;	
+	font-size: 40px;			
+	font: 'Trebuchet MS', Arial;
+}
+p#jogadasRestantes{
+	position: relative;
+	bottom: 20px;
+	right: 27px;
+	
+}
+
+p#jogadorNaVez{	
+	position: relative;
+	width: 250px;
+	bottom: 20	px;
+	right: 27px;
+}
+p{	
+	
+	position: relative;
+	bottom: 15px;
+	display: inline-table;
+}
+
+table{
+	float: left;
+	border-collapse: collapse;
+	border-style: none;
+}
+
+td{
+	height: 0px;
+	
+	padding-bottom: 0px;
+	padding-top: 0px;
+	padding-left: 7px;
+	padding-right: 0px;	
+}	
+tr{
+	height: 1px;
+
+}
