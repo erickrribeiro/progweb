@@ -29,8 +29,8 @@ class Curso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id'], 'integer'],
+            [['id', 'sigla', 'nome'], 'required', 'message'=>'Este campo é obrigatório.'],
+            [['id'], 'integer', 'message'=>'ID dever ser um inteiro.'],
             [['sigla'], 'string', 'max' => 4],
             [['nome'], 'string', 'max' => 50]
         ];

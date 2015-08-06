@@ -32,9 +32,12 @@ class Aluno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matricula', 'id_curso', 'ano_ingresso'], 'integer'],
-            [['nome'], 'string', 'max' => 200],
-            [['sexo'], 'string', 'max' => 1]
+            [['matricula', 'id_curso', 'ano_ingresso', 'nome', 'sexo'], 'required','message'=>'Este campo é obrigatório.'],
+            [['matricula'], 'match', 'pattern'=>'/^[0-9]{8}$/','message'=>'Matrícula inválida.'],
+            [['nome'], 'string','max' => 200],
+            [['sexo'], 'string', 'max' => 1],
+            [['sexo'], 'in', 'range' => ['M','m','F','f'],'message'=>'Sexo inválido.'],
+            [['ano_ingresso'], 'in', 'range' => range(1900, date('Y')), 'message'=>'Ano de Ingresso é inválido.']
         ];
     }
 

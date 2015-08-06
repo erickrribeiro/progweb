@@ -30,12 +30,13 @@ class Usuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id'], 'integer'],
+            [['id','login', 'senha', 'nome', 'email'], 'required', 'message'=>'Este campo é obrigatório.'],
+            [['id'], 'integer', 'message'=>'ID dever ser um inteiro.'],
             [['login'], 'string', 'max' => 20],
-            [['senha'], 'string', 'max' => 128],
+            ['senha', 'match', 'pattern'=>'/^[a-z0-9_-]{6,20}$/'],
             [['nome', 'pagina'], 'string', 'max' => 200],
-            [['email'], 'string', 'max' => 100]
+            [['email'], 'email', 'message'=>'Informe um email válido.'],
+            [['pagina'], 'url', 'message'=> 'informe uma URL válida Ex: http://dominio.com']
         ];
     }
 
