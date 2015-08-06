@@ -48,11 +48,11 @@ class Aluno extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'matricula' => 'Matricula',
-            'nome' => 'Nome',
+            'matricula' => 'Matrícula',
+            'nome' => 'Nome Completo',
             'sexo' => 'Sexo',
-            'id_curso' => 'Id Curso',
-            'ano_ingresso' => 'Ano Ingresso',
+            'id_curso' => 'Curso de Graduação',
+            'ano_ingresso' => 'Ano de Ingresso',
         ];
     }
 

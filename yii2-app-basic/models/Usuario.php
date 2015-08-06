@@ -49,9 +49,9 @@ class Usuario extends \yii\db\ActiveRecord
             'id' => 'ID',
             'login' => 'Login',
             'senha' => 'Senha',
-            'nome' => 'Nome',
-            'email' => 'Email',
-            'pagina' => 'Pagina',
+            'nome' => 'Nome Completo',
+            'email' => 'Endereço de Email',
+            'pagina' => 'Página',
         ];
     }
 }
