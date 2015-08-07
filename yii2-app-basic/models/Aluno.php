@@ -85,5 +85,9 @@ class Aluno extends \yii\db\ActiveRecord
         return parent::beforeValidate();
 
     }
+    public  function afterFind(){
+        $this->sexo = strtoupper($this->sexo);
+
+    }
 
 }
