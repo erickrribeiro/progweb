@@ -92,6 +92,8 @@ class Aluno extends \yii\db\ActiveRecord
             $this->sexo = "Femino";
         }
 
+        $this->id_curso = Curso::findOne($this->id_curso)->nome;
+
 
     }
 
