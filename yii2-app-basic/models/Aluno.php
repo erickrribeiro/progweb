@@ -86,7 +86,12 @@ class Aluno extends \yii\db\ActiveRecord
 
     }
     public  function afterFind(){
-        $this->sexo = strtoupper($this->sexo);
+        if($this->sexo = "M") {
+            $this->sexo = "Masculino";
+        }else{
+            $this->sexo = "Femino";
+        }
+
 
     }
 
