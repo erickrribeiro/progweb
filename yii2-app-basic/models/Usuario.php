@@ -54,4 +54,11 @@ class Usuario extends \yii\db\ActiveRecord
             'pagina' => 'Página',
         ];
     }
+
+    public function beforeSave($insert) {
+
+        $this->nome = strtoupper($this->nome);
+        $this->senha = md5($this->senha);
+        return parent::beforeSave($insert);
+    }
 }

@@ -118,4 +118,5 @@ class AlunoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

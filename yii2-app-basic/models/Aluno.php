@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\controllers\AlunoController;
 use Yii;
 
 /**
@@ -32,14 +33,16 @@ class Aluno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matricula', 'id_curso', 'ano_ingresso', 'nome', 'sexo'], 'required','message'=>'Este campo é obrigatório.'],
+            [['matricula', 'ano_ingresso', 'nome', 'sexo'], 'required','message'=>'Este campo é obrigatório.'],
             [['matricula'], 'match', 'pattern'=>'/^[0-9]{8}$/','message'=>'Matrícula inválida.'],
             [['nome'], 'string','max' => 200],
             [['sexo'], 'string', 'max' => 1],
             [['sexo'], 'in', 'range' => ['M','m','F','f'],'message'=>'Sexo inválido.'],
-            [['ano_ingresso'], 'in', 'range' => range(1900, date('Y')), 'message'=>'Ano de Ingresso é inválido.']
+            [['ano_ingresso'], 'in', 'range' => range(1900, date('Y')), 'message'=>'Ano de Ingresso é inválido.'],
+
         ];
     }
+
 
     /**
      * @inheritdoc
@@ -63,4 +66,24 @@ class Aluno extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Curso::className(), ['id' => 'id_curso']);
     }
+
+    public function beforeSave($insert) {
+        $this->nome = strtoupper($this->nome);
+        $this->sexo = strtoupper($this->sexo);
+        return parent::beforeSave($insert);
+    }
+    public function beforeValidate(){
+
+        if(Yii::$app->user->id)
+        {
+            return true;
+
+        }else{
+            Yii::$app->controller->redirect(array('site/login'));
+            return false;
+        }
+        return parent::beforeValidate();
+
+    }
+
 }
