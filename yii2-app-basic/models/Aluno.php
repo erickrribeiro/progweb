@@ -37,7 +37,6 @@ class Aluno extends \yii\db\ActiveRecord
             [['matricula'], 'match', 'pattern'=>'/^[0-9]{8}$/','message'=>'Matrícula inválida.'],
             [['nome'], 'string','max' => 200],
             [['sexo'], 'string', 'max' => 1],
-            [['sexo'], 'in', 'range' => ['M','m','F','f'],'message'=>'Sexo inválido.'],
             [['ano_ingresso'], 'in', 'range' => range(1900, date('Y')), 'message'=>'Ano de Ingresso é inválido.'],
 
         ];
@@ -86,15 +85,7 @@ class Aluno extends \yii\db\ActiveRecord
 
     }
     public  function afterFind(){
-        if($this->sexo = "M") {
-            $this->sexo = "Masculino";
-        }else{
-            $this->sexo = "Femino";
-        }
-
         $this->id_curso = Curso::findOne($this->id_curso)->nome;
-
-
     }
 
 }
