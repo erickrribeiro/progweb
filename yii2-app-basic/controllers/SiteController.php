@@ -36,6 +36,8 @@ class SiteController extends Controller
 
     public function actions()
     {
+
+        Yii::$app->controller->redirect(array('site/'));
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',

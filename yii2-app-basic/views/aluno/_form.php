@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Aluno */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="aluno-form">
@@ -16,9 +17,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sexo')->dropDownList(array('M'=>'Masculino', 'F'=>'Feminino')) ?>
+    <p><? ?></p>
+    <?=
+    $form->field($model, 'sexo')->dropDownList(array('M'=>'Masculino', 'F'=>'Feminino')) ?>
 
-    <?= $form->field($model, 'id_curso')->textInput() ?>
+    <?= $form->field($model, 'id_curso')->dropDownList($curso) ?>
 
     <?= $form->field($model, 'ano_ingresso')->textInput() ?>
 

@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Curso;
 use Yii;
 use app\models\Aluno;
 use app\models\AlunoSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,7 +34,13 @@ class AlunoController extends Controller
      */
     public function actionIndex()
     {
+        echo "<script>console.log('Index')</script>";
+
         $searchModel = new AlunoSearch();
+
+        //$id = Yii::$app->request->get('id');
+        //echo "<script> console.log('ID: $id')</script>";
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -60,13 +68,15 @@ class AlunoController extends Controller
      */
     public function actionCreate()
     {
+
+        $curso_array = ArrayHelper::map(Curso::find()->all(), 'id', 'nome');
+
         $model = new Aluno();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
+            return $this->render('create', ['model' => $model, 'curso'=>$curso_array
             ]);
         }
     }
@@ -112,6 +122,7 @@ class AlunoController extends Controller
      */
     protected function findModel($id)
     {
+
         if (($model = Aluno::findOne($id)) !== null) {
             return $model;
         } else {
