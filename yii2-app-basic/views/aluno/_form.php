@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     <?=
     $form->field($model, 'sexo')->dropDownList(array('M'=>'Masculino', 'F'=>'Feminino')) ?>
 
-    <?= $form->field($model, 'id_curso')->dropDownList($curso) ?>
+    <?= $form->field($model, 'id_curso')->dropDownList($curso_lista) ?>
 
     <?= $form->field($model, 'ano_ingresso')->textInput() ?>
 

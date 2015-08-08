@@ -69,14 +69,14 @@ class AlunoController extends Controller
     public function actionCreate()
     {
 
-        $curso_array = ArrayHelper::map(Curso::find()->all(), 'id', 'nome');
+        $curso_lista = ArrayHelper::map(Curso::find()->all(), 'id', 'nome');
 
         $model = new Aluno();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', ['model' => $model, 'curso'=>$curso_array
+            return $this->render('create', ['model' => $model, 'curso_lista'=>$curso_lista
             ]);
         }
     }
