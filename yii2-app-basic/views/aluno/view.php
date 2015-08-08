@@ -35,5 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'ano_ingresso',
         ],
     ]) ?>
-
+    <p> Em nossa base, existem
+        <?=
+        \app\models\Aluno::find()->where("ano_ingresso=$model->ano_ingresso")->count();
+        ?>
+        alunos de <?=$model->ano_ingresso;?>. </p>
 </div>
