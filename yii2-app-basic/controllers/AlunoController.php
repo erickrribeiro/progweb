@@ -7,6 +7,7 @@ use Yii;
 use app\models\Aluno;
 use app\models\AlunoSearch;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -18,15 +19,17 @@ class AlunoController extends Controller
 {
     public function behaviors()
     {
+        echo "<script> console.log('behaviors')</script>";
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                        'delete' => ['post'],
                 ],
             ],
         ];
     }
+
 
     /**
      * Lists all Aluno models.
@@ -34,12 +37,8 @@ class AlunoController extends Controller
      */
     public function actionIndex()
     {
-        echo "<script>console.log('Index')</script>";
-
+        echo "<script> console.log('actionIndex')</script>";
         $searchModel = new AlunoSearch();
-
-        //$id = Yii::$app->request->get('id');
-        //echo "<script> console.log('ID: $id')</script>";
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -56,8 +55,11 @@ class AlunoController extends Controller
      */
     public function actionView($id)
     {
+
+        echo "<script> console.log('actionView: $id')</script>";
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel("13"),
         ]);
     }
 
@@ -113,6 +115,12 @@ class AlunoController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionTurma($id)
+    {
+        $this->findModel($id)->delete();
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Aluno model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -122,7 +130,7 @@ class AlunoController extends Controller
      */
     protected function findModel($id)
     {
-
+        echo "<script> console.log('findModel')</script>";
         if (($model = Aluno::findOne($id)) !== null) {
             return $model;
         } else {

@@ -13,6 +13,8 @@ class SiteController extends Controller
 {
     public function behaviors()
     {
+
+
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -34,10 +36,24 @@ class SiteController extends Controller
         ];
     }
 
+    public function beforeAction($action)
+    {
+        echo "<script> console.log('sitebefore: uniid: $action->uniqueId')</script>";
+        if($action->uniqueId == "site/error" ) {
+            echo "<script> console.log('aqui:')</script>";
+            $this->redirect(['view','id'=>'1']);
+
+            $model = new LoginForm();
+            return $this->render('login', ['model' => $model,'id', '1']);
+
+            //return $this->render('view', [            'model' => $this->findModel("1"),        ]);
+        }
+        return true;
+    }
+
     public function actions()
     {
-
-        Yii::$app->controller->redirect(array('site/'));
+        echo "<script> console.log('SiteController actions')</script>";
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -49,10 +65,16 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionView($id){
+        echo "<script> console.log('SiteController actionview')</script>";
+    }
+
     public function actionIndex()
     {
+        echo "<script> console.log('SiteController actionIndex')</script>";
         return $this->render('index');
     }
+
 
     public function actionLogin()
     {
